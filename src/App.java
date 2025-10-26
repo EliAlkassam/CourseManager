@@ -1,5 +1,36 @@
+import java.util.List;
+
+import javax.swing.SwingUtilities;
+
+import gui.AppFrame;
+import gui.Credits;
+import model.CampusCourse;
+import model.Course;
+import model.OnlineCourse;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new AppFrame().setVisible(true);
+
+                CampusCourse campus = new CampusCourse("java", Credits.FIFTEEN, "This course");
+                OnlineCourse onlineCourse = new OnlineCourse("java II", Credits.THIRTY, "Tome for the final");
+
+                // Course c = new Course();
+                // c.addCourse(campus);
+
+                CourseManager c = new CourseManager();
+                c.addCourse(campus);
+                c.addCourse(onlineCourse);
+
+                List<Course> list = c.getCoursesList();
+
+                System.out.println(list);
+
+            }
+        });
+
     }
 }
