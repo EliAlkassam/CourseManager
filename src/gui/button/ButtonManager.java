@@ -11,29 +11,43 @@ import gui.CreateCoursePanel;
 
 public class ButtonManager {
     private JButton editButton;
+    private JButton deleteButton;
+
     private JPanel buttonPanel = new JPanel();
 
     private CourseManager courseManager;
     private CreateCoursePanel createCoursePanel;
 
     public ButtonManager() {
+        initButtons();
+        System.out.println(" inside ButtonManager ctor");
+        // this.courseManager = courseManager;
+    }
+
+    private void initButtons() {
         editButton = new JButton("Edit course");
         editButton.setEnabled(false);
+        deleteButton = new JButton("Delete course");
+        deleteButton.setEnabled(false);
+
         buttonPanel.add(editButton);
-        System.out.println(" inside Button ctor");
-        // this.courseManager = courseManager;
+        buttonPanel.add(deleteButton);
     }
 
     public JPanel getButtonPanel() {
         return buttonPanel;
     }
 
-    public void setEditBtnEnabled(boolean status) {
+    public JButton getEditBtn() {
+        return editButton;
+    }
+
+    public void setEditBtnStatus(boolean status) {
         editButton.setEnabled(status);
     }
 
-    public JButton getEditButton() {
-        return editButton;
+    public JButton getDeleteBtn() {
+        return deleteButton;
     }
 
     private ActionListener loadCourseInfoAction() {

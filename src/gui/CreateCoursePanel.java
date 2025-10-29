@@ -170,7 +170,7 @@ public class CreateCoursePanel extends JPanel {
         editingCourse = null;
         resetForm();
         createBtn.setText("Create course");
-        buttonManager.setEditBtnEnabled(false);
+        buttonManager.setEditBtnStatus(false);
 
     }
 

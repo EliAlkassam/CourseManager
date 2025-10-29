@@ -78,7 +78,7 @@ public class CreateCourseListPanel extends JPanel {
                     row.setBackground(Color.LIGHT_GRAY);
                     selectedRow = row;
                     selectedCourse = c;
-                    buttonManager.setEditBtnEnabled(true);
+                    buttonManager.setEditBtnStatus(true);
                     // System.err.println("Klickad på:" + selectedCourse);
                 }
             });

@@ -61,6 +61,7 @@ public class AppFrame extends JFrame {
 
         ButtonManager buttonManager = new ButtonManager();
         add(buttonManager.getButtonPanel(), BorderLayout.SOUTH);
+
         // create panels
         createCourseListPanel = new CreateCourseListPanel(courseManager, buttonManager);
         createCoursePanel = new CreateCoursePanel(courseManager, createCourseListPanel, buttonManager);
@@ -81,7 +82,7 @@ public class AppFrame extends JFrame {
         // // ???
         // createCourseListPanel.createCourseElement();
 
-        JButton editBtn = buttonManager.getEditButton();
+        JButton editBtn = buttonManager.getEditBtn();
         editBtn.addActionListener(e -> {
 
             try {
