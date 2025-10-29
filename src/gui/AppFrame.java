@@ -63,7 +63,7 @@ public class AppFrame extends JFrame {
         add(buttonManager.getButtonPanel(), BorderLayout.SOUTH);
         // create panels
         createCourseListPanel = new CreateCourseListPanel(courseManager, buttonManager);
-        createCoursePanel = new CreateCoursePanel(courseManager, createCourseListPanel);
+        createCoursePanel = new CreateCoursePanel(courseManager, createCourseListPanel, buttonManager);
         // createCoursePanel.setPreferredSize(new Dimension(450, 350));
 
         // add panels

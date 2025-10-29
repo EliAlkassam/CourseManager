@@ -19,9 +19,10 @@ import Service.CourseManager;
 import gui.button.ButtonManager;
 import model.Course;
 
+// generates courses and displays in ui 
 public class CreateCourseListPanel extends JPanel {
 
-    private JPanel jPanel = new JPanel();
+    // private JPanel jPanel = new JPanel();
     // private JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
 
     private final CourseManager courseManager;
@@ -38,9 +39,9 @@ public class CreateCourseListPanel extends JPanel {
 
     }
 
-    public JPanel getCourseJPanel() {
-        return jPanel;
-    }
+    // public JPanel getCourseJPanel() {
+    // return jPanel;
+    // }
 
     public void createCourseElement() {
         removeAll();

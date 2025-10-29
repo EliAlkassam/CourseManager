@@ -1,6 +1,7 @@
 package gui;
 
 import enums.Credits;
+import gui.button.ButtonManager;
 import Service.CourseManager;
 
 import java.awt.*;
@@ -23,6 +24,7 @@ import model.CampusCourse;
 import model.Course;
 import model.OnlineCourse;
 
+// Panel for creating a course with fields, radiobuttons and create/save changes button
 public class CreateCoursePanel extends JPanel {
 
     // private final JLabel title = new JLabel("Course manager");
@@ -44,11 +46,14 @@ public class CreateCoursePanel extends JPanel {
 
     private CourseManager courseManager;
     private CreateCourseListPanel createCourseListPanel;
+    private ButtonManager buttonManager;
     // private OnClickListener<CreateCoursePanel> onClickListener;
 
-    public CreateCoursePanel(CourseManager courseManager, CreateCourseListPanel createCourseListPanel) {
+    public CreateCoursePanel(CourseManager courseManager, CreateCourseListPanel createCourseListPanel,
+            ButtonManager buttonManager) {
         this.courseManager = courseManager;
         this.createCourseListPanel = createCourseListPanel;
+        this.buttonManager = buttonManager;
 
         setBackground(Color.LIGHT_GRAY);
         // setLayout(new BorderLayout(8, 8));
@@ -87,6 +92,11 @@ public class CreateCoursePanel extends JPanel {
 
         // createBtn.addActionListener(e -> createCourse());
 
+        handleCreateAndSaveBtn();
+
+    }
+
+    private void handleCreateAndSaveBtn() {
         createBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,20 +104,30 @@ public class CreateCoursePanel extends JPanel {
                     if (editingCourse == null) {
                         createCourse();
                     } else {
-                        editingCourse.setCourseName(tfName.getText());
-                        // editingCourse.setCredits(cbCredits.getSelectedItem());
-                        editingCourse.setOverview(tfOverView.getText());
-                        courseManager.updateCourse(editingCourse);
-                        createCourseListPanel.createCourseElement();
-                        exitEditMode();
+                        saveCourseChanges();
                     }
-
                 } catch (Exception ex) {
-                    // TODO: handle exception
+                    ex.getMessage();
+                    ex.printStackTrace();
                 }
             }
         });
+    }
 
+    private void saveCourseChanges() throws Exception {
+        try {
+            editingCourse.setCourseName(tfName.getText());
+            // editingCourse.setCredits(cbCredits.getSelectedItem());
+            editingCourse.setOverview(tfOverView.getText());
+
+            courseManager.updateCourse(editingCourse);
+            createCourseListPanel.createCourseElement();
+            exitEditMode();
+
+        } catch (Exception e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
     }
 
     public void createCourse() {
@@ -128,12 +148,7 @@ public class CreateCoursePanel extends JPanel {
         courseManager.addCourseToList(course);
         createCourseListPanel.createCourseElement();
 
-        // resets
-        tfName.setText("");
-        campusRdBtn.setSelected(false);
-        onlineRdBtn.setSelected(false);
-        tfOverView.setText("");
-
+        resetForm();
     }
 
     public void getCourseForEditMode(Course c) {
@@ -153,12 +168,17 @@ public class CreateCoursePanel extends JPanel {
     public void exitEditMode() {
         // resets
         editingCourse = null;
+        resetForm();
+        createBtn.setText("Create course");
+        buttonManager.setEditBtnEnabled(false);
+
+    }
+
+    private void resetForm() {
         tfName.setText("");
         campusRdBtn.setSelected(false);
         onlineRdBtn.setSelected(false);
         tfOverView.setText("");
-        createBtn.setText("Create course");
-
     }
 
     public JButton getCreateBtn() {
