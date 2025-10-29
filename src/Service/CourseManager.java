@@ -1,3 +1,5 @@
+package Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,10 +8,16 @@ import model.Course;
 public class CourseManager {
 
     private List<Course> courses = new ArrayList<>();
+    private Course course;
 
-    public void addCourse(Course c) {
-        if (c != null) {
-            courses.add(c);
+    public void addCourseToList(Course c) {
+        try {
+            if (c != null) {
+                courses.add(c);
+            }
+
+        } catch (Exception e) {
+
         }
     }
 
@@ -27,5 +35,10 @@ public class CourseManager {
             }
         }
         return course;
+    }
+
+    public Course updateCourse(Course course) {
+        // String name = course.setCourseName(null);
+        return this.course;
     }
 }

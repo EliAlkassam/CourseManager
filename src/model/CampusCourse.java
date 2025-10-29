@@ -1,6 +1,6 @@
 package model;
 
-import gui.Credits;
+import enums.Credits;
 
 public class CampusCourse extends Course {
 
