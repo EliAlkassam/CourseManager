@@ -19,6 +19,7 @@ public abstract class Course implements Printable {
     private static final AtomicInteger idGenerator = new AtomicInteger(1);
 
     private List<Course> courses;
+    private Course course;
 
     public Course() {
         this.id = idGenerator.getAndIncrement();
@@ -26,10 +27,10 @@ public abstract class Course implements Printable {
 
     }
 
-    public Course(String name, Credits credits, String overview) {
+    public Course(String courseName, Credits credits, String overview) {
         this.id = idGenerator.getAndIncrement();
         this.credits = credits;
-        this.courseName = name;
+        this.courseName = courseName;
         this.overview = overview;
     }
 
@@ -89,6 +90,15 @@ public abstract class Course implements Printable {
                 + "-"
                 + "Overview="
                 + " " + overview;
+    }
+
+    @Override
+    public String toStringType() {
+
+        if (course instanceof CampusCourse) {
+            return "Campus course";
+        }
+        return "Online course";
     }
 
 }

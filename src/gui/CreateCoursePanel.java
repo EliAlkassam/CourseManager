@@ -34,14 +34,14 @@ public class CreateCoursePanel extends JPanel {
     private Course course;
     private Course editingCourse;
 
-    private final JTextField tfName = new JTextField();
+    private final JTextField tfName = new JTextField("JAVA");
 
     private final JComboBox<Credits> cbCredits = new JComboBox<>(Credits.values());
 
     JRadioButton campusRdBtn = new JRadioButton("Campus");
     JRadioButton onlineRdBtn = new JRadioButton("Online");
 
-    private final JTextField tfOverView = new JTextField();
+    private final JTextField tfOverView = new JTextField("Dags för årets första java kurs...");
     private JButton createBtn = new JButton("Create Course");
 
     private CourseManager courseManager;
@@ -104,7 +104,7 @@ public class CreateCoursePanel extends JPanel {
                     if (editingCourse == null) {
                         createCourse();
                     } else {
-                        saveCourseChanges();
+                        saveSelectedCourseChanges();
                     }
                 } catch (Exception ex) {
                     ex.getMessage();
@@ -114,7 +114,7 @@ public class CreateCoursePanel extends JPanel {
         });
     }
 
-    private void saveCourseChanges() throws Exception {
+    private void saveSelectedCourseChanges() throws Exception {
         try {
             editingCourse.setCourseName(tfName.getText());
             // editingCourse.setCredits(cbCredits.getSelectedItem());
@@ -171,6 +171,7 @@ public class CreateCoursePanel extends JPanel {
         resetForm();
         createBtn.setText("Create course");
         buttonManager.setEditBtnStatus(false);
+        buttonManager.setDeleteBtnStatus(false);
 
     }
 

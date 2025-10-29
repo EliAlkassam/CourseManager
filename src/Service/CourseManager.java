@@ -41,4 +41,8 @@ public class CourseManager {
         // String name = course.setCourseName(null);
         return this.course;
     }
+
+    public void deleteCourse(Course course) {
+        courses.remove(course);
+    }
 }

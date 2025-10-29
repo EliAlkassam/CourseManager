@@ -50,6 +50,10 @@ public class ButtonManager {
         return deleteButton;
     }
 
+    public void setDeleteBtnStatus(boolean status) {
+        deleteButton.setEnabled(status);
+    }
+
     private ActionListener loadCourseInfoAction() {
         return al -> {
 

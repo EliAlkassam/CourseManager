@@ -27,6 +27,7 @@ import java.awt.Label;
 public class AppFrame extends JFrame {
 
     public static final String APP_NAME = "Course Manager";
+
     private Container c = this.getContentPane();
 
     private CreateCoursePanel createCoursePanel;
@@ -81,16 +82,16 @@ public class AppFrame extends JFrame {
 
         // // ???
         // createCourseListPanel.createCourseElement();
+        // Course selectedCourse = createCourseListPanel.getSelectedCourse();
 
         JButton editBtn = buttonManager.getEditBtn();
         editBtn.addActionListener(e -> {
-
             try {
                 Course selectedCourse = createCourseListPanel.getSelectedCourse();
                 if (selectedCourse != null) {
                     createCoursePanel.getCourseForEditMode(selectedCourse);
-                    // buttonManager.setEditBtnEnabled(true);
-                    System.err.println("inne i AppFrame");
+                    buttonManager.setEditBtnStatus(false);
+                    System.err.println("inne i AppFrame:editbtn action listner");
                     // revalidate();
                     // repaint();
                 } else {
@@ -101,7 +102,33 @@ public class AppFrame extends JFrame {
                 ex.getMessage();
                 ex.printStackTrace();
             }
+        });
 
+        JButton deleteBtn = buttonManager.getDeleteBtn();
+        deleteBtn.addActionListener(e -> {
+            try {
+                Course selectedCourse = createCourseListPanel.getSelectedCourse();
+                if (selectedCourse != null) {
+                    int result = JOptionPane.showConfirmDialog(this,
+                            "Are you sure you want to delete course:" + " " + selectedCourse.getCourseName() + "?",
+                            "Delete course",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                    if (result == JOptionPane.YES_OPTION) {
+                        courseManager.deleteCourse(selectedCourse);
+                        createCourseListPanel.createCourseElement();
+                        buttonManager.setDeleteBtnStatus(false);
+                        buttonManager.setEditBtnStatus(false);
+                        createCoursePanel.exitEditMode();
+
+                        JOptionPane.showMessageDialog(this, "The Course:" + " " + selectedCourse.getCourseName() + " "
+                                + "has been succesfully deleted");
+                    }
+                }
+            } catch (Exception ex) {
+                ex.getMessage();
+                ex.printStackTrace();
+            }
         });
 
     }

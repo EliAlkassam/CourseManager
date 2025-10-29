@@ -1,0 +1,20 @@
+Course name: 
+Credits: 7.5
+Type: class model.OnlineCourse
+Course Overview: 
+
+Course name: 
+Credits: 7.5
+Type: class model.OnlineCourse
+Course Overview: 
+
+Course name: 
+Credits: 7.5
+Type: class model.OnlineCourse
+Course Overview: 
+
+Course name: 
+Credits: 7.5
+Type: class model.OnlineCourse
+Course Overview: 
+

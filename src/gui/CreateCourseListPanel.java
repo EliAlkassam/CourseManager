@@ -53,15 +53,10 @@ public class CreateCourseListPanel extends JPanel {
             JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 2));
             row.setBackground(Color.GREEN);
 
-            row.add(new JLabel(c.getCourseName()));
+            row.add(new JLabel("Course name:" + c.getCourseName()));
             row.add(new JLabel(c.getCredits().toString()));
-
-            row.add(new JLabel(c.getClass().getSimpleName()));
-            // row.add(new JLabel(c.toString()));
+            row.add(new JLabel(c.toStringType()));
             row.add(new JLabel(c.getOverview()));
-
-            // JButton editBtn = new JButton("Edit");
-            // row.add(editBtn);
 
             add(row);
             // row.add(addMouseListener(MouseEvent.MOUSE_CLICKED));
@@ -79,6 +74,7 @@ public class CreateCourseListPanel extends JPanel {
                     selectedRow = row;
                     selectedCourse = c;
                     buttonManager.setEditBtnStatus(true);
+                    buttonManager.setDeleteBtnStatus(true);
                     // System.err.println("Klickad på:" + selectedCourse);
                 }
             });
