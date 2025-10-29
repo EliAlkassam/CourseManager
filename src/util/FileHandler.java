@@ -40,7 +40,7 @@ public class FileHandler {
 
                 String name = course.getCourseName().trim();
                 Credits credits = course.getCredits();
-                String type = course.getClass().toString();
+                String type = course.toStringType();
                 String overview = course.getOverview().trim();
 
                 bw.write("Course name:" + " " + name);

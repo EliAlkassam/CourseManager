@@ -116,8 +116,10 @@ public class CreateCoursePanel extends JPanel {
 
     private void saveSelectedCourseChanges() throws Exception {
         try {
+
+            Credits selectedCredit = (Credits) cbCredits.getSelectedItem();
             editingCourse.setCourseName(tfName.getText());
-            // editingCourse.setCredits(cbCredits.getSelectedItem());
+            editingCourse.setCredits(selectedCredit);
             editingCourse.setOverview(tfOverView.getText());
 
             courseManager.updateCourse(editingCourse);
@@ -132,6 +134,7 @@ public class CreateCoursePanel extends JPanel {
 
     public void createCourse() {
 
+        // to do - more JOptionPane
         String name = tfName.getText();
         Credits credit = (Credits) cbCredits.getSelectedItem();
         String overview = tfOverView.getText();

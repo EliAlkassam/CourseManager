@@ -3,6 +3,7 @@ package Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.CourseException;
 import model.Course;
 
 public class CourseManager {
@@ -22,7 +23,7 @@ public class CourseManager {
     }
 
     public List<Course> getCoursesList() {
-        return courses;
+        return this.courses;
     }
 
     public Course findById(int id) {
@@ -37,12 +38,18 @@ public class CourseManager {
         return course;
     }
 
-    public Course updateCourse(Course course) {
+    public Course updateCourse(Course course) throws CourseException {
+        if (course == null) {
+            throw new CourseException("Could not find course");
+        }
         // String name = course.setCourseName(null);
         return this.course;
     }
 
-    public void deleteCourse(Course course) {
+    public void deleteCourse(Course course) throws CourseException {
+        if (course == null) {
+            throw new CourseException("Could not find course to delete");
+        }
         courses.remove(course);
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import enums.Credits;
+import exception.CourseException;
 import gui.Printable;
 
 // abstract superclass that implements the interface
@@ -38,9 +39,9 @@ public abstract class Course implements Printable {
         return this.id;
     }
 
-    public void setCredits(Credits credits) throws Exception {
+    public void setCredits(Credits credits) throws CourseException {
         if (credits == null) {
-            throw new Exception("Credits can't be null");
+            throw new CourseException("Credits can't be null");
         }
         this.credits = credits;
     }
@@ -49,11 +50,11 @@ public abstract class Course implements Printable {
         return this.credits;
     }
 
-    public void setCourseName(String name) throws Exception {
+    public void setCourseName(String name) throws CourseException {
         if (name == null) {
-            throw new Exception("Name can't be null");
+            throw new CourseException("Name can't be null");
         } else if (name.isEmpty()) {
-            throw new Exception("setAuthor(): Author can't empty");
+            throw new CourseException("Name can't empty");
         }
         this.courseName = name;
     }
@@ -69,10 +70,6 @@ public abstract class Course implements Printable {
     public String getOverview() {
         return this.overview;
     }
-
-    // public List<Course> getCourses() {
-    // return this.courses;
-    // }
 
     @Override
     public String print() {
