@@ -24,8 +24,6 @@ public class FileHandler {
 
     }
 
-    JFileChooser chooser = new JFileChooser();
-
     public static void save(List<Course> courseList, String fileName) {
 
         try {
@@ -84,6 +82,7 @@ public class FileHandler {
 
     // public static Course load(String fileName) throws FileNotFoundException,
     // IOException {
+
     // Course course = new Course();
     // try {
 
@@ -98,7 +97,7 @@ public class FileHandler {
 
     // try {
     // course.setName(name);
-    // //course.setAuthor(author);
+    // // course.setAuthor(author);
 
     // } catch (Exception e) {
     // e.getMessage();

@@ -1,17 +1,22 @@
 package gui;
 
+import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Service.CourseManager;
 import util.FileHandler;
@@ -49,7 +54,7 @@ public class MenuManager {
 
 	private void createMenu() {
 		createFileMenu();
-		createEditMenu();
+		// createEditMenu();
 		// createFilterMenu();
 	}
 
@@ -71,29 +76,29 @@ public class MenuManager {
 
 	}
 
-	private void createEditMenu() {
-		String sEdit = "Edit";
-		String sDrawing = "Drawing";
-		menu.addJMenu(sEdit);
-		menu.addSubJMenu(sEdit, sDrawing);
-		menu.getJMenu(1).setMnemonic(KeyEvent.VK_E);
+	// private void createEditMenu() {
+	// String sEdit = "Edit";
+	// String sDrawing = "Drawing";
+	// menu.addJMenu(sEdit);
+	// menu.addSubJMenu(sEdit, sDrawing);
+	// menu.getJMenu(1).setMnemonic(KeyEvent.VK_E);
 
-		// menu.addJMenuItem(sEdit, "Undo", createUndoAction(),
-		KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK);
-		// menu.addJMenuItem(sDrawing, "Name...", createChangeNameAction());
-		// menu.addJMenuItem(sDrawing, "Author...", createChangeAuthorAction());
+	// // menu.addJMenuItem(sEdit, "Undo", createUndoAction(),
+	// KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK);
+	// // menu.addJMenuItem(sDrawing, "Name...", createChangeNameAction());
+	// // menu.addJMenuItem(sDrawing, "Author...", createChangeAuthorAction());
 
-		/*
-		 * Denna rad, som du inte får ta bort, kommer skapa ett NullException.
-		 * Du måste hantera denna situation i Menu-klassen. I vanliga fall
-		 * hade det varit rimligt att ett Exception kastades (klienten bör
-		 * i vanliga fall göras medveten om att den försöker skapa ett
-		 * JMenuItem till en JMenu som inte existerar), men nu räcker
-		 * det med att ingenting alls händer i det läget man anropar
-		 * addJMenuItem med en sträng som inte kan hittas.
-		 */
-		menu.addJMenuItem("This JMenu doesn't exist", "abc");
-	}
+	// /*
+	// * Denna rad, som du inte får ta bort, kommer skapa ett NullException.
+	// * Du måste hantera denna situation i Menu-klassen. I vanliga fall
+	// * hade det varit rimligt att ett Exception kastades (klienten bör
+	// * i vanliga fall göras medveten om att den försöker skapa ett
+	// * JMenuItem till en JMenu som inte existerar), men nu räcker
+	// * det med att ingenting alls händer i det läget man anropar
+	// * addJMenuItem med en sträng som inte kan hittas.
+	// */
+	// menu.addJMenuItem("This JMenu doesn't exist", "abc");
+	// }
 
 	// private void createFilterMenu() {
 
@@ -338,23 +343,59 @@ public class MenuManager {
 
 	private ActionListener SaveAsAction() {
 		return al -> {
-			String fileName = JOptionPane.showInputDialog(createCoursePanel, "*Enter file name for the courses created",
-					"Save file",
-					JOptionPane.INFORMATION_MESSAGE);
-			if (fileName == null) {
-				return;
-			}
-			while (fileName == null || fileName.isBlank()) {
-				JOptionPane.showInputDialog(createCoursePanel, "File must have a name");
-			}
 
 			try {
-				FileHandler.save(courseManager.getCoursesList(), fileName);
+				String projectMap = System.getProperty("user.dir");
+				JFileChooser fc = new JFileChooser(projectMap);
+				// fc.setDialogTitle("Save course as a file");
 
+				System.err.println("är:" + projectMap);
+
+				int option = fc.showSaveDialog(frame);
+				File fileName = fc.getSelectedFile();
+
+				if (fileName == null) {
+					return;
+				}
+				while (fileName == null & option == 0) {
+					JOptionPane.showInputDialog(createCoursePanel, "File must have a name");
+				}
+				if (option == 0) {
+
+					FileHandler.save(courseManager.getCoursesList(), fileName.getName());
+					// System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+					System.err.println("inne i option:" + option);
+				}
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(createCoursePanel, "Could not save file" + " " + e.getMessage());
 				e.printStackTrace();
+				e.getMessage();
 			}
+			// if (option == 0 & fileName == null) {
+
+			// }
+
+			// chooser.showSaveDialog(null);
+			// int option = chooser.showOpenDialog(this);
+
+			// String fileName = JOptionPane.showInputDialog(createCoursePanel, "*Enter file
+			// name for the courses created",
+			// "Save file",
+			// JOptionPane.INFORMATION_MESSAGE);
+			// if (fileName == null) {
+			// return;
+			// }
+			// while (fileName == null || fileName.isBlank()) {
+			// JOptionPane.showInputDialog(createCoursePanel, "File must have a name");
+			// }
+
+			// try {
+			// FileHandler.save(courseManager.getCoursesList(), fileName);
+
+			// } catch (Exception e) {
+			// JOptionPane.showMessageDialog(createCoursePanel, "Could not save file" + " "
+			// + e.getMessage());
+			// e.printStackTrace();
+			// }
 		};
 	}
 
