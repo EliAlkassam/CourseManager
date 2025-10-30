@@ -77,7 +77,7 @@ public class AppFrame extends JFrame {
 
         // createCourseListPanel.createCourseElement();
 
-        MenuManager menuManager = new MenuManager(this, createCoursePanel, courseManager);
+        MenuManager menuManager = new MenuManager(this, createCoursePanel, createCourseListPanel, courseManager);
         setJMenuBar(menuManager.getMenu());
 
         // // ???

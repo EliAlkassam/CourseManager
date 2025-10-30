@@ -38,11 +38,14 @@ public class CourseManager {
         return course;
     }
 
+    public List<Course> setCourses(List<Course> courses) {
+        return this.courses = courses;
+    }
+
     public Course updateCourse(Course course) throws CourseException {
         if (course == null) {
             throw new CourseException("Could not find course");
         }
-        // String name = course.setCourseName(null);
         return this.course;
     }
 

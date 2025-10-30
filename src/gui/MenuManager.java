@@ -1,9 +1,9 @@
 package gui;
 
-import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,10 @@ import model.Course;
  * @since 2025-09-27
  */
 public class MenuManager {
+
 	private AppFrame frame;
 	private CreateCoursePanel createCoursePanel;
+	private CreateCourseListPanel createCourseListPanel;
 	private Menu menu;
 
 	// private Predicate<Shape> circleFilter = s -> s instanceof Circle;
@@ -40,9 +42,11 @@ public class MenuManager {
 
 	private CourseManager courseManager;
 
-	public MenuManager(AppFrame frame, CreateCoursePanel createCoursePanel, CourseManager courseManager) {
+	public MenuManager(AppFrame frame, CreateCoursePanel createCoursePanel, CreateCourseListPanel createCourseListPanel,
+			CourseManager courseManager) {
 		this.frame = frame;
 		this.createCoursePanel = createCoursePanel;
+		this.createCourseListPanel = createCourseListPanel;
 		this.courseManager = courseManager;
 		this.menu = new Menu();
 		createMenu();
@@ -65,8 +69,8 @@ public class MenuManager {
 
 		// menu.addJMenuItem(sFile, "New...", createNewDrawingAction(),
 		// KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-		// menu.addJMenuItem(sFile, "Load...", createLoadAction(),
-		KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK);
+		menu.addJMenuItem(sFile, "Load...", createLoadAction(),
+				KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
 		menu.addJMenuItem(sFile, "Save As...", SaveAsAction(),
 				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
 		// menu.addJMenuItem(sFile, "Info", showInfoAction());
@@ -310,92 +314,66 @@ public class MenuManager {
 	// return finalString;
 	// }
 
-	// private ActionListener createLoadAction() {
-	// return al -> {
-	// try {
-	// String fileName = JOptionPane.showInputDialog(createCoursePanel, "Enter file
-	// name to load", "Load file",
-	// JOptionPane.INFORMATION_MESSAGE);
+	private ActionListener createLoadAction() {
+		return al -> {
 
-	// try {
-	// Course course = FileHandler.load(fileName);
-	// if (course != null) {
+			String projectMap = System.getProperty("user.dir") + "\\src\\created_files";
+			JFileChooser chooser = new JFileChooser(projectMap);
 
-	// String name = course.getName();
-	// String author = course.getAuthor();
+			// creates a filter that only accepts text files
+			FileFilter txtFilter = new FileNameExtensionFilter("Text files", "txt");
+			chooser.addChoosableFileFilter(txtFilter);
 
-	// frame.setDrawingTitle(name, author);
-	// createCoursePanel.setDrawing(course);
-	// frame.repaint();
-	// }
-	// } catch (IOException e) {
-	// JOptionPane.showMessageDialog(createCoursePanel, "Could not find the file:" +
-	// " " + e.getMessage());
-	// e.printStackTrace();
-	// }
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// e.getMessage();
-	// }
-	// frame.repaint();
-	// };
-	// }
+			// Remove/comment the below row if you also want the default 'All files' filter
+			chooser.setAcceptAllFileFilterUsed(false);
+
+			// Open a 'open' dialog and wait for user selection
+			int option = chooser.showOpenDialog(frame);
+
+			if (option == JFileChooser.APPROVE_OPTION) {
+				File filename = chooser.getSelectedFile();
+
+				try {
+					List<Course> courselLists = FileHandler.load(filename.getName());
+					courseManager.setCourses(courselLists);
+
+					createCourseListPanel.createCourseElement();
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			frame.repaint();
+		};
+	}
 
 	private ActionListener SaveAsAction() {
 		return al -> {
 
 			try {
-				String projectMap = System.getProperty("user.dir");
+				String projectMap = System.getProperty("user.dir") + "\\src\\created_files";
 				JFileChooser fc = new JFileChooser(projectMap);
 				// fc.setDialogTitle("Save course as a file");
 
 				System.err.println("är:" + projectMap);
 
 				int option = fc.showSaveDialog(frame);
-				File fileName = fc.getSelectedFile();
+				File selectedFile = fc.getSelectedFile();
+				String fileName = selectedFile.getName().trim();
 
-				if (fileName == null) {
-					return;
-				}
-				while (fileName == null & option == 0) {
-					JOptionPane.showInputDialog(createCoursePanel, "File must have a name");
-				}
-				if (option == 0) {
+				if (option == JFileChooser.APPROVE_OPTION) {
 
-					FileHandler.save(courseManager.getCoursesList(), fileName.getName());
-					// System.out.println("Save as file: " + fileToSave.getAbsolutePath());
-					System.err.println("inne i option:" + option);
+					FileHandler.save(courseManager.getCoursesList(), fileName);
+					JOptionPane.showMessageDialog(frame, "Succesfully saved the file:" + " " + fileName);
+
 				}
 			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, "Failed to save the file:" + " " + e.getMessage());
 				e.printStackTrace();
-				e.getMessage();
 			}
-			// if (option == 0 & fileName == null) {
 
-			// }
-
-			// chooser.showSaveDialog(null);
-			// int option = chooser.showOpenDialog(this);
-
-			// String fileName = JOptionPane.showInputDialog(createCoursePanel, "*Enter file
-			// name for the courses created",
-			// "Save file",
-			// JOptionPane.INFORMATION_MESSAGE);
-			// if (fileName == null) {
-			// return;
-			// }
-			// while (fileName == null || fileName.isBlank()) {
-			// JOptionPane.showInputDialog(createCoursePanel, "File must have a name");
-			// }
-
-			// try {
-			// FileHandler.save(courseManager.getCoursesList(), fileName);
-
-			// } catch (Exception e) {
-			// JOptionPane.showMessageDialog(createCoursePanel, "Could not save file" + " "
-			// + e.getMessage());
-			// e.printStackTrace();
-			// }
 		};
 	}
 

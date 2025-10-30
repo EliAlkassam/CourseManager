@@ -12,6 +12,25 @@ public enum Credits {
         this.points = points;
     }
 
+    public static Credits getEnum(String s) {
+        Credits credit = null;
+
+        switch (s) {
+            case "7.5":
+                credit = Credits.SEVEN_POINT_FIVE;
+                break;
+            case "15.0":
+                credit = Credits.FIFTEEN;
+                break;
+            case "30.0":
+                credit = Credits.THIRTY;
+                break;
+            default:
+                break;
+        }
+        return credit;
+    }
+
     public double getCredits() {
         return this.points;
     }

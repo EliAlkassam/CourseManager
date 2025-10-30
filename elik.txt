@@ -1,5 +1,0 @@
-Course name: JAVA
-Credits: 7.5
-Type: Online course
-Course Overview: Dags för årets första java kurs...
-

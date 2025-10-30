@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -30,6 +31,7 @@ public class CreateCourseListPanel extends JPanel {
     // private CreateCoursePanel createCoursePanel;
     private Course selectedCourse;
     private JPanel selectedRow;
+    // private ArrayList<Course> courseList;
 
     public CreateCourseListPanel(CourseManager courseManager, ButtonManager buttonManager) {
         this.courseManager = courseManager;
