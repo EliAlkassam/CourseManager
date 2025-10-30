@@ -327,14 +327,13 @@ public class MenuManager {
 			// Remove/comment the below row if you also want the default 'All files' filter
 			chooser.setAcceptAllFileFilterUsed(false);
 
-			// Open a 'open' dialog and wait for user selection
 			int option = chooser.showOpenDialog(frame);
 
 			if (option == JFileChooser.APPROVE_OPTION) {
-				File filename = chooser.getSelectedFile();
+				File selectedFile = chooser.getSelectedFile();
 
 				try {
-					List<Course> courselLists = FileHandler.load(filename.getName());
+					List<Course> courselLists = FileHandler.load(selectedFile.getName());
 					courseManager.setCourses(courselLists);
 
 					createCourseListPanel.createCourseElement();
