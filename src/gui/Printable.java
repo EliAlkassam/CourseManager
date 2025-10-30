@@ -1,9 +1,11 @@
 package gui;
 
+import model.Course;
+
 public interface Printable {
 
     String print();
 
-    String toStringType();
+    String toStringType(Course c);
 
 }

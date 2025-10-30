@@ -20,7 +20,6 @@ public class ButtonManager {
 
     public ButtonManager() {
         initButtons();
-        System.out.println(" inside ButtonManager ctor");
         // this.courseManager = courseManager;
     }
 

@@ -54,12 +54,6 @@ public class AppFrame extends JFrame {
         setLayout(new BorderLayout());
         // setLayout(new GridLayout(2, 2));
 
-        // Lägg till testkurser
-        // courseManager.addCourse(new CampusCourse("Java Development", Credits.FIFTEEN,
-        // "Programming with Java"));
-        // courseManager.addCourse(new OnlineCourse("Java Development", Credits.THIRTY,
-        // "Continue with Java"));
-
         ButtonManager buttonManager = new ButtonManager();
         add(buttonManager.getButtonPanel(), BorderLayout.SOUTH);
 
@@ -89,16 +83,12 @@ public class AppFrame extends JFrame {
             try {
                 Course selectedCourse = createCourseListPanel.getSelectedCourse();
                 if (selectedCourse != null) {
-                    createCoursePanel.getCourseForEditMode(selectedCourse);
+                    createCoursePanel.enterEditMode(selectedCourse);
                     buttonManager.setEditBtnStatus(false);
-                    System.err.println("inne i AppFrame:editbtn action listner");
-                    // revalidate();
-                    // repaint();
-                } else {
-                    JOptionPane.showMessageDialog(this, "You have to choose a course to edit first");
                 }
 
             } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "You have to choose a course to edit first");
                 ex.getMessage();
                 ex.printStackTrace();
             }
@@ -115,7 +105,6 @@ public class AppFrame extends JFrame {
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE);
                     if (result == JOptionPane.YES_OPTION) {
-                        courseManager.deleteCourse(selectedCourse);
                         createCourseListPanel.createCourseElement();
                         buttonManager.setDeleteBtnStatus(false);
                         buttonManager.setEditBtnStatus(false);
@@ -123,14 +112,17 @@ public class AppFrame extends JFrame {
 
                         JOptionPane.showMessageDialog(this, "The Course:" + " " + selectedCourse.getCourseName() + " "
                                 + "has been succesfully deleted");
+                        courseManager.deleteCourse(selectedCourse);
                     }
                 }
             } catch (Exception ex) {
-                ex.getMessage();
+                JOptionPane.showMessageDialog(this, "Could not delete course", "Failed to delete",
+                        JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         });
 
+        createCourseListPanel.createCourseElement();
     }
 
     // @FunctionalInterface

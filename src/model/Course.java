@@ -12,7 +12,7 @@ import gui.Printable;
 
 public abstract class Course implements Printable {
 
-    protected final int id;
+    protected int id;
     protected Credits credits;
     protected String courseName;
     protected String overview;
@@ -90,12 +90,12 @@ public abstract class Course implements Printable {
     }
 
     @Override
-    public String toStringType() {
-
-        if (course instanceof CampusCourse) {
+    public String toStringType(Course c) {
+        if (c instanceof CampusCourse) {
             return "Campus course";
+        } else {
+            return "Online course";
         }
-        return "Online course";
     }
 
 }

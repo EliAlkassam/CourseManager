@@ -1,6 +1,7 @@
 package gui;
 
 import enums.Credits;
+import exception.CourseException;
 import gui.button.ButtonManager;
 import Service.CourseManager;
 
@@ -24,7 +25,7 @@ import model.CampusCourse;
 import model.Course;
 import model.OnlineCourse;
 
-// Panel for creating a course with fields, radiobuttons and create/save changes button
+// Panel for creating a course with input fields, radiobuttons and create/save changes button
 public class CreateCoursePanel extends JPanel {
 
     // private final JLabel title = new JLabel("Course manager");
@@ -74,12 +75,11 @@ public class CreateCoursePanel extends JPanel {
         ButtonGroup buttonGroup = new ButtonGroup();
 
         // buttonGroup.( new BorderLayout());
+
         buttonGroup.add(campusRdBtn);
         buttonGroup.add(onlineRdBtn);
 
-        // selectCourseTypeLbl.setLabelFor(buttonGroup);
         form.add(selectCourseTypeLbl);
-        // form.add(new JLabel ("Select Course type"));
         form.add(campusRdBtn);
         form.add(onlineRdBtn);
 
@@ -90,10 +90,7 @@ public class CreateCoursePanel extends JPanel {
 
         this.add(form, BorderLayout.WEST);
 
-        // createBtn.addActionListener(e -> createCourse());
-
         handleCreateAndSaveBtn();
-
     }
 
     private void handleCreateAndSaveBtn() {
@@ -106,7 +103,7 @@ public class CreateCoursePanel extends JPanel {
                     } else {
                         saveSelectedCourseChanges();
                     }
-                } catch (Exception ex) {
+                } catch (CourseException ex) {
                     ex.getMessage();
                     ex.printStackTrace();
                 }
@@ -114,7 +111,7 @@ public class CreateCoursePanel extends JPanel {
         });
     }
 
-    private void saveSelectedCourseChanges() throws Exception {
+    private void saveSelectedCourseChanges() throws CourseException {
         try {
 
             Credits selectedCredit = (Credits) cbCredits.getSelectedItem();
@@ -126,7 +123,7 @@ public class CreateCoursePanel extends JPanel {
             createCourseListPanel.createCourseElement();
             exitEditMode();
 
-        } catch (Exception e) {
+        } catch (CourseException e) {
             e.getMessage();
             e.printStackTrace();
         }
@@ -154,11 +151,11 @@ public class CreateCoursePanel extends JPanel {
         resetForm();
     }
 
-    public void getCourseForEditMode(Course c) {
+    public void enterEditMode(Course c) {
         tfName.setText(c.getCourseName());
         cbCredits.setSelectedItem(c.getCredits());
         tfOverView.setText(c.getOverview());
-        editingCourse = c;
+        this.editingCourse = c;
         createBtn.setText("Save changes");
         revalidate();
         repaint();
@@ -170,7 +167,7 @@ public class CreateCoursePanel extends JPanel {
 
     public void exitEditMode() {
         // resets
-        editingCourse = null;
+        this.editingCourse = null;
         resetForm();
         createBtn.setText("Create course");
         buttonManager.setEditBtnStatus(false);
@@ -180,13 +177,13 @@ public class CreateCoursePanel extends JPanel {
 
     private void resetForm() {
         tfName.setText("");
-        campusRdBtn.setSelected(false);
+        campusRdBtn.setSelected(true);
         onlineRdBtn.setSelected(false);
         tfOverView.setText("");
     }
 
     public JButton getCreateBtn() {
-        return createBtn;
+        return this.createBtn;
     }
 
     public Course getCourse() {

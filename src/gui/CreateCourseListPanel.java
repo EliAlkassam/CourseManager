@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import Service.CourseManager;
 import gui.button.ButtonManager;
@@ -33,11 +34,22 @@ public class CreateCourseListPanel extends JPanel {
     private JPanel selectedRow;
     // private ArrayList<Course> courseList;
 
+    // ny
+    private JPanel contentPanel;
+    private JScrollPane scrollPane;
+
     public CreateCourseListPanel(CourseManager courseManager, ButtonManager buttonManager) {
         this.courseManager = courseManager;
         this.buttonManager = buttonManager;
         // this.createCoursePanel = createCoursePanel;
+
+        // ny
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
+        contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        scrollPane = new JScrollPane(contentPanel);
+        add(scrollPane, BorderLayout.CENTER);
 
     }
 
@@ -46,22 +58,26 @@ public class CreateCourseListPanel extends JPanel {
     // }
 
     public void createCourseElement() {
-        removeAll();
+        // removeAll();
+        contentPanel.removeAll();
         // JPanel courseElement = new JPanel();
         // courseElement.setLayout(new BoxLayout(courseElement, BoxLayout.Y_AXIS));
 
         for (Course c : courseManager.getCoursesList()) {
 
-            JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 2));
+            JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+            row.setOpaque(true);
             row.setBackground(Color.GREEN);
 
+            row.add(new JLabel(String.valueOf(c.getId()) + "."));
             row.add(new JLabel("Course name:" + c.getCourseName()));
-            row.add(new JLabel(c.getCredits().toString()));
-            row.add(new JLabel(c.toStringType()));
-            row.add(new JLabel(c.getOverview()));
+            row.add(new JLabel(c.getCredits().toString() + "points"));
 
-            add(row);
-            // row.add(addMouseListener(MouseEvent.MOUSE_CLICKED));
+            row.add(new JLabel(c.toStringType(c)));
+
+            row.add(new JLabel(c.getOverview()));
+            // add(row);
+            contentPanel.add(row);
 
             row.addMouseListener(new MouseAdapter() {
                 @Override
@@ -77,7 +93,6 @@ public class CreateCourseListPanel extends JPanel {
                     selectedCourse = c;
                     buttonManager.setEditBtnStatus(true);
                     buttonManager.setDeleteBtnStatus(true);
-                    // System.err.println("Klickad på:" + selectedCourse);
                 }
             });
 
@@ -100,13 +115,13 @@ public class CreateCourseListPanel extends JPanel {
         }
         revalidate();
         repaint();
-
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 
     public Course getSelectedCourse() {
         return selectedCourse;
     }
-
     // class CustomMouseAdapter extends MouseAdapter {
     // @Override
     // public void mousePressed(MouseEvent e) {
