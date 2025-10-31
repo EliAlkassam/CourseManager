@@ -50,8 +50,9 @@ public class CreateCoursePanel extends JPanel {
     private JRadioButton onlineRdBtn = new JRadioButton("Online");
 
     private final JTextField tfOverView = new JTextField("Dags för årets första java kurs...");
+
     private ImageIcon createIcon = new ImageIcon("src\\icons\\plus.png");
-    private JButton createBtn = new JButton("Create Course", createIcon);
+    private JButton createBtn;
 
     private CourseManager courseManager;
     private CreateCourseListPanel createCourseListPanel;
@@ -97,6 +98,7 @@ public class CreateCoursePanel extends JPanel {
         form.add(tfOverView);
 
         // createBtn.add(createIcon);
+        createBtn = new JButton("Create Course", createIcon);
         form.add(createBtn);
 
         this.add(form, BorderLayout.WEST);
@@ -158,7 +160,15 @@ public class CreateCoursePanel extends JPanel {
         Credits credit = (Credits) cbCredits.getSelectedItem();
         String overview = tfOverView.getText();
 
-        // Course course;
+        if (name.isBlank() || name == null) {
+            JOptionPane.showMessageDialog(this, "Course must have a name");
+            return;
+        }
+        if (overview.isBlank() || overview == null) {
+            JOptionPane.showMessageDialog(this, "Course must have overview information");
+            return;
+        }
+
         if (campusRdBtn.isSelected()) {
             course = new CampusCourse(name, credit, overview);
         } else if (onlineRdBtn.isSelected()) {

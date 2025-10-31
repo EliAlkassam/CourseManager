@@ -3,6 +3,7 @@ package gui.button;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -18,6 +19,9 @@ import gui.CreateCoursePanel;
  */
 
 public class ButtonManager {
+    private ImageIcon editIcon = new ImageIcon("src\\icons\\pen.png");
+    private ImageIcon deleteIcon = new ImageIcon("src\\icons\\bin.png");
+
     private JButton editButton;
     private JButton deleteButton;
     private JPanel buttonPanel;
@@ -34,10 +38,10 @@ public class ButtonManager {
 
     private void initButtons() {
         buttonPanel = new JPanel();
-        editButton = new JButton("Edit course");
+        editButton = new JButton("Edit course", editIcon);
         editButton.setEnabled(false);
 
-        deleteButton = new JButton("Delete course");
+        deleteButton = new JButton("Delete course", deleteIcon);
         deleteButton.setEnabled(false);
 
         buttonPanel.add(editButton);
