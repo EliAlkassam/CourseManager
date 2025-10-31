@@ -12,12 +12,9 @@ import javax.swing.KeyStroke;
 
 /**
  * This class handles all the JMenuBar items.
- * For instance, they add items in menus.
- * 
  *
  * @author elal2203
  * @version 1.0
- * @since YYYY-MM-DD
  */
 
 public class Menu extends JMenuBar {

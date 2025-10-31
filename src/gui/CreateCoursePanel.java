@@ -13,6 +13,7 @@ import javax.crypto.CipherInputStream;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -25,7 +26,14 @@ import model.CampusCourse;
 import model.Course;
 import model.OnlineCourse;
 
-// Panel for creating a course with input fields, radiobuttons and create/save changes button
+/**
+ * Panel for creating a course with input fields, radiobuttons and create/save
+ * changes button
+ *
+ * @author elal2203
+ * @version 0.1
+ * @since 2025-10-30
+ */
 public class CreateCoursePanel extends JPanel {
 
     // private final JLabel title = new JLabel("Course manager");
@@ -42,7 +50,8 @@ public class CreateCoursePanel extends JPanel {
     private JRadioButton onlineRdBtn = new JRadioButton("Online");
 
     private final JTextField tfOverView = new JTextField("Dags för årets första java kurs...");
-    private JButton createBtn = new JButton("Create Course");
+    private ImageIcon createIcon = new ImageIcon("src\\icons\\plus.png");
+    private JButton createBtn = new JButton("Create Course", createIcon);
 
     private CourseManager courseManager;
     private CreateCourseListPanel createCourseListPanel;
@@ -87,6 +96,7 @@ public class CreateCoursePanel extends JPanel {
         form.add(new JLabel("Course overview"));
         form.add(tfOverView);
 
+        // createBtn.add(createIcon);
         form.add(createBtn);
 
         this.add(form, BorderLayout.WEST);

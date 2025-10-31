@@ -1,20 +1,9 @@
 package util;
 
-// import se.miun.elal2203.dt187g.jpaint.Drawing;
-// import se.miun.elal2203.dt187g.jpaint.geometry.Circle;
-// import se.miun.elal2203.dt187g.jpaint.geometry.Point;
-// import se.miun.elal2203.dt187g.jpaint.geometry.Rectangle;
-// import se.miun.elal2203.dt187g.jpaint.geometry.Shape;
-
-import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
-import javax.print.DocFlavor.STRING;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JOptionPane;
 
 import enums.Credits;
 import model.CampusCourse;
@@ -25,15 +14,16 @@ import java.io.*;
 
 public class FileHandler {
 
+    private static final String FILE_TYPE = ".txt";
+
     public FileHandler() {
 
     }
 
-    public static void save(List<Course> courseList, String fileName) {
-
+    public static void save(List<Course> courseList, String fileName) throws IOException {
         try {
-            if (!fileName.endsWith(".txt")) {
-                fileName += ".txt";
+            if (!fileName.endsWith(FILE_TYPE)) {
+                fileName += FILE_TYPE;
             }
 
             File selectedFile = new File(fileName);
@@ -48,11 +38,9 @@ public class FileHandler {
 
                 bw.write(courseName + "," + credits + "," + type + "," + overview);
                 bw.newLine();
-
             }
             bw.close();
         } catch (IOException e) {
-            System.err.println("Save failed:" + e.toString());
             e.printStackTrace();
             e.getMessage();
         }
@@ -63,8 +51,8 @@ public class FileHandler {
 
         ArrayList<Course> courseList = new ArrayList<Course>();
         try {
-            if (!fileName.endsWith(".txt")) {
-                fileName += ".txt";
+            if (!fileName.endsWith(FILE_TYPE)) {
+                fileName += FILE_TYPE;
             }
             // Path path = Path.of(fileName);
             // List<String> data = java.nio.file.Files.readAllLines(path);
@@ -78,6 +66,7 @@ public class FileHandler {
             while ((rowInFile = bufferedReader.readLine()) != null) {
                 arrayList.add(rowInFile);
             }
+
             Course course;
             for (String courseRow : arrayList) {
                 String splittedArray[] = courseRow.split(",");

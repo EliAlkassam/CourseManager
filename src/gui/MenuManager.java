@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
-import javax.swing.JMenu;
+
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
+
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -335,12 +334,14 @@ public class MenuManager {
 				try {
 					List<Course> courselLists = FileHandler.load(selectedFile.getName());
 					courseManager.setCourses(courselLists);
-
 					createCourseListPanel.createCourseElement();
 
 				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(frame, "File not found:" + e.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
 				} catch (IOException e) {
+					JOptionPane.showMessageDialog(frame, "File not found:" + e.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
 					e.printStackTrace();
 				}
 			}
@@ -366,10 +367,13 @@ public class MenuManager {
 
 					FileHandler.save(courseManager.getCoursesList(), fileName);
 					JOptionPane.showMessageDialog(frame, "Succesfully saved the file:" + " " + fileName);
-
 				}
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(frame, "Failed to save the file:" + " " + e.getMessage());
+			} catch (FileNotFoundException e) {
+				JOptionPane.showMessageDialog(frame, "Failed to save the file:" + " " + e.getMessage(), "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(frame, "Failed to save the file:" + " " + e.getMessage(), "Error",
+						JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}
 

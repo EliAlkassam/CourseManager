@@ -2,7 +2,9 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -10,6 +12,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -72,6 +76,7 @@ public class CreateCourseListPanel extends JPanel {
         for (Course c : courseManager.getCoursesList()) {
             JPanel row = createCourseRow(c);
             contentPanel.add(row);
+            contentPanel.add(Box.createVerticalStrut(10));
 
         }
         // revalidate();
@@ -85,16 +90,32 @@ public class CreateCourseListPanel extends JPanel {
      */
     private JPanel createCourseRow(Course c) {
         JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        row.setLayout(new BoxLayout(row, BoxLayout.PAGE_AXIS));
+        // row.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // topp,
+        // vänster, botten, höger
+        row.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(220, 220, 220), 1, true), // tunn grå ram med rundade hörn
+                BorderFactory.createEmptyBorder(10, 15, 10, 15))); // inre padding
+
         row.setOpaque(true);
-        row.setBackground(Color.GREEN);
+        row.setBackground(new Color(245, 245, 245));
 
         row.add(new JLabel(String.valueOf(c.getId()) + "."));
-        row.add(new JLabel("Course name:" + c.getCourseName()));
+
+        JLabel courseNameLbl = new JLabel(c.getCourseName());
+        courseNameLbl.setFont(new Font("SanssSerif", Font.BOLD, 17));
+        row.add(courseNameLbl);
+
         row.add(new JLabel(c.getCredits().toString() + "points"));
 
         row.add(new JLabel(c.toStringType(c)));
 
         row.add(new JLabel(c.getOverview()));
+
+        row.setPreferredSize(new Dimension(320, 100));
+        row.setMaximumSize(new Dimension(320, 100));
+        row.setMinimumSize(new Dimension(320, 100));
+
         // add(row);
         contentPanel.add(row);
 

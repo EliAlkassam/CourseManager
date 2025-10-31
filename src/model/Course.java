@@ -8,8 +8,14 @@ import enums.Credits;
 import exception.CourseException;
 import gui.Printable;
 
-// abstract superclass that implements the interface
-
+/**
+ * Abstract base class representing a course
+ * Implements the interface "Printable"
+ * 
+ * @author elal2203
+ * @version 0.1
+ * @since 2025-10-31
+ */
 public abstract class Course implements Printable {
 
     protected int id;
@@ -18,9 +24,6 @@ public abstract class Course implements Printable {
     protected String overview;
 
     private static final AtomicInteger idGenerator = new AtomicInteger(1);
-
-    private List<Course> courses;
-    private Course course;
 
     public Course() {
         this.id = idGenerator.getAndIncrement();
@@ -51,10 +54,8 @@ public abstract class Course implements Printable {
     }
 
     public void setCourseName(String name) throws CourseException {
-        if (name == null) {
-            throw new CourseException("Name can't be null");
-        } else if (name.isEmpty()) {
-            throw new CourseException("Name can't empty");
+        if (name == null || name.isEmpty()) {
+            throw new CourseException("Name can't be null or empty");
         }
         this.courseName = name;
     }
@@ -63,7 +64,10 @@ public abstract class Course implements Printable {
         return this.courseName;
     }
 
-    public void setOverview(String overview) {
+    public void setOverview(String overview) throws CourseException {
+        if (overview == null || overview.isEmpty()) {
+            throw new CourseException("Overview can't be null or empty");
+        }
         this.overview = overview;
     }
 
@@ -93,8 +97,10 @@ public abstract class Course implements Printable {
     public String toStringType(Course c) {
         if (c instanceof CampusCourse) {
             return "Campus course";
-        } else {
+        } else if (c instanceof OnlineCourse) {
             return "Online course";
+        } else {
+            return "Unknown course type";
         }
     }
 

@@ -12,6 +12,7 @@ import javax.swing.border.Border;
 
 import Service.CourseManager;
 import enums.Credits;
+import exception.CourseException;
 import gui.button.ButtonManager;
 import model.CampusCourse;
 import model.Course;
@@ -24,6 +25,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Label;
 
+/**
+ * Main frame for the Course Manager application
+ *
+ * @author elal2203
+ * @version 0.1
+ * @since 2025-01-30
+ */
 public class AppFrame extends JFrame {
 
     public static final String APP_NAME = "Course Manager";
@@ -77,7 +85,7 @@ public class AppFrame extends JFrame {
         createCourseListPanel.createCourseElement();
     }
 
-    public void setupFrameProperties() {
+    private void setupFrameProperties() {
         setTitle(APP_NAME);
         setSize(900, 700);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -88,7 +96,7 @@ public class AppFrame extends JFrame {
     /**
      * Adds the menu bar items by using MenuManager.
      */
-    public void setupMenuBar() {
+    private void setupMenuBar() {
         MenuManager menuManager = new MenuManager(this, createCoursePanel, createCourseListPanel, courseManager);
         setJMenuBar(menuManager.getMenu());
     }
@@ -96,7 +104,7 @@ public class AppFrame extends JFrame {
     /**
      * Set up actions for edit and delete buttons.
      */
-    public void setUpButtonActions(ButtonManager buttonManager) {
+    private void setUpButtonActions(ButtonManager buttonManager) {
         JButton editBtn = buttonManager.getEditBtn();
         editBtn.addActionListener(e -> {
             try {
@@ -105,10 +113,8 @@ public class AppFrame extends JFrame {
                     createCoursePanel.enterEditMode(selectedCourse);
                     buttonManager.setEditBtnStatus(false);
                 }
-
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "You have to choose a course to edit first");
-                ex.getMessage();
                 ex.printStackTrace();
             }
         });
@@ -135,7 +141,7 @@ public class AppFrame extends JFrame {
                         createCourseListPanel.createCourseElement();
                     }
                 }
-            } catch (Exception ex) {
+            } catch (CourseException ex) {
                 JOptionPane.showMessageDialog(this, "Could not delete course", "Failed to delete",
                         JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
