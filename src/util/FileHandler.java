@@ -43,7 +43,7 @@ public class FileHandler {
 
                 String courseName = course.getCourseName().trim();
                 Credits credits = course.getCredits();
-                String type = course.toStringType();
+                String type = course.toStringType(course);
                 String overview = course.getOverview().trim();
 
                 bw.write(courseName + "," + credits + "," + type + "," + overview);

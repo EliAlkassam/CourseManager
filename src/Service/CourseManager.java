@@ -6,19 +6,22 @@ import java.util.List;
 import exception.CourseException;
 import model.Course;
 
+/**
+ * Handles logic for storing, updating and deleting courses
+ *
+ * @author elal2203
+ * @version 0.1
+ * @since 2025-10-31
+ */
+
 public class CourseManager {
 
     private List<Course> courses = new ArrayList<>();
     private Course course;
 
     public void addCourseToList(Course c) {
-        try {
-            if (c != null) {
-                courses.add(c);
-            }
-
-        } catch (Exception e) {
-
+        if (c != null) {
+            courses.add(c);
         }
     }
 
@@ -27,17 +30,17 @@ public class CourseManager {
     }
 
     public Course findById(int id) {
-        Course course = null;
-
         for (Course c : courses) {
             if (c.getId() == id) {
-                c = course;
-                break;
+                return c;
             }
         }
-        return course;
+        return null;
     }
 
+    /**
+     * Replaces current list of courses with provided one.
+     */
     public List<Course> setCourses(List<Course> courses) {
         return this.courses = courses;
     }
@@ -50,7 +53,7 @@ public class CourseManager {
     }
 
     public void deleteCourse(Course course) throws CourseException {
-        if (course == null) {
+        if (course == null || !courses.remove(course)) {
             throw new CourseException("Could not find course to delete");
         }
         courses.remove(course);

@@ -36,11 +36,10 @@ public class CreateCoursePanel extends JPanel {
     private Course editingCourse;
 
     private final JTextField tfName = new JTextField("JAVA");
-
     private final JComboBox<Credits> cbCredits = new JComboBox<>(Credits.values());
 
-    JRadioButton campusRdBtn = new JRadioButton("Campus");
-    JRadioButton onlineRdBtn = new JRadioButton("Online");
+    private JRadioButton campusRdBtn = new JRadioButton("Campus");
+    private JRadioButton onlineRdBtn = new JRadioButton("Online");
 
     private final JTextField tfOverView = new JTextField("Dags för årets första java kurs...");
     private JButton createBtn = new JButton("Create Course");
@@ -50,6 +49,9 @@ public class CreateCoursePanel extends JPanel {
     private ButtonManager buttonManager;
     // private OnClickListener<CreateCoursePanel> onClickListener;
 
+    /**
+     * initialize the course form and layout.
+     */
     public CreateCoursePanel(CourseManager courseManager, CreateCourseListPanel createCourseListPanel,
             ButtonManager buttonManager) {
         this.courseManager = courseManager;
@@ -71,11 +73,10 @@ public class CreateCoursePanel extends JPanel {
         form.add(new JLabel("Credits"));
         form.add(cbCredits, BorderLayout.WEST);
 
+        // Course type and radio buttons
         JLabel selectCourseTypeLbl = new JLabel("Select Course type");
         ButtonGroup buttonGroup = new ButtonGroup();
-
         // buttonGroup.( new BorderLayout());
-
         buttonGroup.add(campusRdBtn);
         buttonGroup.add(onlineRdBtn);
 
@@ -90,9 +91,14 @@ public class CreateCoursePanel extends JPanel {
 
         this.add(form, BorderLayout.WEST);
 
+        // Button functionality
         handleCreateAndSaveBtn();
     }
 
+    /**
+     * Decides if a new course should be created or an existing course should be
+     * updated
+     */
     private void handleCreateAndSaveBtn() {
         createBtn.addActionListener(new ActionListener() {
             @Override
@@ -104,13 +110,17 @@ public class CreateCoursePanel extends JPanel {
                         saveSelectedCourseChanges();
                     }
                 } catch (CourseException ex) {
-                    ex.getMessage();
                     ex.printStackTrace();
+                    JOptionPane.showMessageDialog(CreateCoursePanel.this, " Error occurred: " + ex.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
     }
 
+    /**
+     * Updates the selected course with the new user input values
+     */
     private void saveSelectedCourseChanges() throws CourseException {
         try {
 
@@ -124,11 +134,13 @@ public class CreateCoursePanel extends JPanel {
             exitEditMode();
 
         } catch (CourseException e) {
-            e.getMessage();
             e.printStackTrace();
         }
     }
 
+    /**
+     * Creates a new course object and adds it to the course list.
+     */
     public void createCourse() {
 
         // to do - more JOptionPane
@@ -151,22 +163,24 @@ public class CreateCoursePanel extends JPanel {
         resetForm();
     }
 
+    /**
+     * Enters edit mode for the selected course.
+     */
     public void enterEditMode(Course c) {
         tfName.setText(c.getCourseName());
         cbCredits.setSelectedItem(c.getCredits());
         tfOverView.setText(c.getOverview());
         this.editingCourse = c;
         createBtn.setText("Save changes");
+
         revalidate();
         repaint();
-        // System.out.println("tfname:" + tfName.getText());
-        // System.out.println("cbCredits är: " + cbCredits.getSelectedItem());
-        // System.out.println("tfOverview:" + tfOverView.getSelectedText());
-
     }
 
+    /**
+     * Resets the input fields to default values.
+     */
     public void exitEditMode() {
-        // resets
         this.editingCourse = null;
         resetForm();
         createBtn.setText("Create course");

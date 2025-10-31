@@ -21,7 +21,13 @@ import Service.CourseManager;
 import gui.button.ButtonManager;
 import model.Course;
 
-// generates courses and displays in ui 
+/**
+ * Panel that displays all created courses dynamically
+ *
+ * @author elal2203
+ * @version 0.1
+ * @since 2025-01-30
+ */
 public class CreateCourseListPanel extends JPanel {
 
     // private JPanel jPanel = new JPanel();
@@ -44,7 +50,7 @@ public class CreateCourseListPanel extends JPanel {
         // this.createCoursePanel = createCoursePanel;
 
         // ny
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        // setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setLayout(new BorderLayout());
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -64,59 +70,51 @@ public class CreateCourseListPanel extends JPanel {
         // courseElement.setLayout(new BoxLayout(courseElement, BoxLayout.Y_AXIS));
 
         for (Course c : courseManager.getCoursesList()) {
-
-            JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-            row.setOpaque(true);
-            row.setBackground(Color.GREEN);
-
-            row.add(new JLabel(String.valueOf(c.getId()) + "."));
-            row.add(new JLabel("Course name:" + c.getCourseName()));
-            row.add(new JLabel(c.getCredits().toString() + "points"));
-
-            row.add(new JLabel(c.toStringType(c)));
-
-            row.add(new JLabel(c.getOverview()));
-            // add(row);
+            JPanel row = createCourseRow(c);
             contentPanel.add(row);
 
-            row.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-
-                    // avmarkera
-                    if (selectedRow != null) {
-                        selectedRow.setBackground(Color.GREEN);
-                    }
-
-                    row.setBackground(Color.LIGHT_GRAY);
-                    selectedRow = row;
-                    selectedCourse = c;
-                    buttonManager.setEditBtnStatus(true);
-                    buttonManager.setDeleteBtnStatus(true);
-                }
-            });
-
-            // editBtn.addActionListener(new ActionListener() {
-            // @Override
-            // public void actionPerformed(ActionEvent e) {
-            // System.err.println("hej");
-
-            // JLabel courseNameLbl = new JLabel(c.getCourseName());
-            // JLabel creditLbl = new JLabel(c.getCredits().toString());
-            // JLabel typeLbl = new JLabel(c.getClass().getSimpleName());
-            // JLabel courseOverviewLbl = new JLabel(c.getOverview());
-
-            // jPanel.add(courseNameLbl);
-            // jPanel.add(creditLbl);
-            // jPanel.add(typeLbl);
-            // jPanel.add(courseOverviewLbl);
-
-            // form.add(jPanel);
         }
-        revalidate();
-        repaint();
+        // revalidate();
+        // repaint();
         contentPanel.revalidate();
         contentPanel.repaint();
+    }
+
+    /**
+     * Creates a row for every course, with mouse selection listner.
+     */
+    private JPanel createCourseRow(Course c) {
+        JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        row.setOpaque(true);
+        row.setBackground(Color.GREEN);
+
+        row.add(new JLabel(String.valueOf(c.getId()) + "."));
+        row.add(new JLabel("Course name:" + c.getCourseName()));
+        row.add(new JLabel(c.getCredits().toString() + "points"));
+
+        row.add(new JLabel(c.toStringType(c)));
+
+        row.add(new JLabel(c.getOverview()));
+        // add(row);
+        contentPanel.add(row);
+
+        row.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                // unmark row
+                if (selectedRow != null) {
+                    selectedRow.setBackground(Color.GREEN);
+                }
+
+                row.setBackground(Color.LIGHT_GRAY);
+                selectedRow = row;
+                selectedCourse = c;
+                buttonManager.setEditBtnStatus(true);
+                buttonManager.setDeleteBtnStatus(true);
+            }
+        });
+        return row;
     }
 
     public Course getSelectedCourse() {

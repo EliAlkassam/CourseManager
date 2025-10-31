@@ -9,11 +9,20 @@ import javax.swing.JPanel;
 import Service.CourseManager;
 import gui.CreateCoursePanel;
 
+/**
+ * Manages edit and delete buttons for course functions.
+ *
+ * @author elal2203
+ * @version 0.1
+ * @since 2025-09-27
+ */
+
 public class ButtonManager {
     private JButton editButton;
     private JButton deleteButton;
+    private JPanel buttonPanel;
 
-    private JPanel buttonPanel = new JPanel();
+    // private JPanel buttonPanel = new JPanel();
 
     private CourseManager courseManager;
     private CreateCoursePanel createCoursePanel;
@@ -24,8 +33,10 @@ public class ButtonManager {
     }
 
     private void initButtons() {
+        buttonPanel = new JPanel();
         editButton = new JButton("Edit course");
         editButton.setEnabled(false);
+
         deleteButton = new JButton("Delete course");
         deleteButton.setEnabled(false);
 
@@ -55,12 +66,13 @@ public class ButtonManager {
 
     private ActionListener loadCourseInfoAction() {
         return al -> {
-
+            // TODO
         };
     }
 
     private void changeCreatebtnToSaveChangesBtn() {
-        JButton btn = createCoursePanel.getCreateBtn();
+        // TODO
+        // JButton btn = createCoursePanel.getCreateBtn();
 
     }
 

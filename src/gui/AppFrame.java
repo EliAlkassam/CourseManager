@@ -28,12 +28,12 @@ public class AppFrame extends JFrame {
 
     public static final String APP_NAME = "Course Manager";
 
+    private final CourseManager courseManager = new CourseManager();
     private Container c = this.getContentPane();
 
     private CreateCoursePanel createCoursePanel;
     private CreateCourseListPanel createCourseListPanel;
 
-    private final CourseManager courseManager = new CourseManager();
     // private CourseManager courseManager;
 
     public AppFrame() {
@@ -46,12 +46,7 @@ public class AppFrame extends JFrame {
     }
 
     private void initialize() {
-
-        setSize(900, 700);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle(APP_NAME);
-
-        setLayout(new BorderLayout());
+        setupFrameProperties();
         // setLayout(new GridLayout(2, 2));
 
         ButtonManager buttonManager = new ButtonManager();
@@ -71,13 +66,37 @@ public class AppFrame extends JFrame {
 
         // createCourseListPanel.createCourseElement();
 
-        MenuManager menuManager = new MenuManager(this, createCoursePanel, createCourseListPanel, courseManager);
-        setJMenuBar(menuManager.getMenu());
+        setupMenuBar();
+
+        setUpButtonActions(buttonManager);
 
         // // ???
         // createCourseListPanel.createCourseElement();
         // Course selectedCourse = createCourseListPanel.getSelectedCourse();
 
+        createCourseListPanel.createCourseElement();
+    }
+
+    public void setupFrameProperties() {
+        setTitle(APP_NAME);
+        setSize(900, 700);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+    }
+
+    /**
+     * Adds the menu bar items by using MenuManager.
+     */
+    public void setupMenuBar() {
+        MenuManager menuManager = new MenuManager(this, createCoursePanel, createCourseListPanel, courseManager);
+        setJMenuBar(menuManager.getMenu());
+    }
+
+    /**
+     * Set up actions for edit and delete buttons.
+     */
+    public void setUpButtonActions(ButtonManager buttonManager) {
         JButton editBtn = buttonManager.getEditBtn();
         editBtn.addActionListener(e -> {
             try {
@@ -113,6 +132,7 @@ public class AppFrame extends JFrame {
                         JOptionPane.showMessageDialog(this, "The Course:" + " " + selectedCourse.getCourseName() + " "
                                 + "has been succesfully deleted");
                         courseManager.deleteCourse(selectedCourse);
+                        createCourseListPanel.createCourseElement();
                     }
                 }
             } catch (Exception ex) {
@@ -121,13 +141,5 @@ public class AppFrame extends JFrame {
                 ex.printStackTrace();
             }
         });
-
-        createCourseListPanel.createCourseElement();
     }
-
-    // @FunctionalInterface
-    // public interface OnClickListener<T> {
-    // public void onClick(T listener);
-    // }
-
 }
