@@ -1,2 +1,0 @@
-wdwd,15.0,Campus course,dwd
-dwdwd,15.0,Online course,dwd

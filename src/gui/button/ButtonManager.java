@@ -1,6 +1,5 @@
 package gui.button;
 
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -56,16 +55,6 @@ public class ButtonManager {
 
     public void setDeleteBtnStatus(boolean status) {
         deleteButton.setEnabled(status);
-    }
-
-    private ActionListener loadCourseInfoAction() {
-        return al -> {
-            // TODO
-        };
-    }
-
-    private void changeCreatebtnToSaveChangesBtn() {
-        // TODO
     }
 
 }

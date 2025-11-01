@@ -39,13 +39,13 @@ public class CreateCoursePanel extends JPanel {
     private Course course;
     private Course editingCourse;
 
-    private final JTextField tfName = new JTextField("JAVA");
+    private final JTextField tfName = new JTextField();
     private final JComboBox<Credits> cbCredits = new JComboBox<>(Credits.values());
 
     private JRadioButton campusRdBtn = new JRadioButton("Campus");
     private JRadioButton onlineRdBtn = new JRadioButton("Online");
 
-    private final JTextField tfOverView = new JTextField("Dags för årets första java kurs...");
+    private final JTextField tfOverView = new JTextField();
 
     private ImageIcon createIcon = new ImageIcon("src\\icons\\plus.png");
     private JButton createBtn;
@@ -53,7 +53,6 @@ public class CreateCoursePanel extends JPanel {
     private CourseManager courseManager;
     private CreateCourseListPanel createCourseListPanel;
     private ButtonManager buttonManager;
-    // private OnClickListener<CreateCoursePanel> onClickListener;
 
     /**
      * initialize the course form and layout.
@@ -65,13 +64,9 @@ public class CreateCoursePanel extends JPanel {
         this.buttonManager = buttonManager;
 
         setBackground(Color.lightGray);
-        // setLayout(new BorderLayout(8, 8));
 
-        // JPanel form = new JPanel(new GridLayout(0, 2, 6, 6));
-        // setSize(300, 500);
         JPanel form = new JPanel();
         form.setLayout(new BoxLayout(form, BoxLayout.PAGE_AXIS));
-        // form.setAlignmentX(Component.LEFT_ALIGNMENT);
         createCourseLbl.setFont(new Font("SanssSerif", Font.BOLD, 25));
         form.add(createCourseLbl);
         form.add(Box.createVerticalStrut(10));
