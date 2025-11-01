@@ -34,7 +34,7 @@ public class MenuManager {
 	private CourseManager courseManager;
 	private Menu menu;
 
-	String folderPath = "\\src\\created_files";
+	private String folderPath = "\\src\\created_files";
 
 	public MenuManager(AppFrame frame, CreateCoursePanel createCoursePanel, CreateCourseListPanel createCourseListPanel,
 			CourseManager courseManager) {

@@ -31,10 +31,6 @@ public enum Credits {
         return credit;
     }
 
-    public double getCredits() {
-        return this.points;
-    }
-
     @Override
     public String toString() {
         return String.valueOf(points);
