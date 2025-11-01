@@ -19,7 +19,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Service.CourseManager;
 import util.FileHandler;
+import model.CampusCourse;
 import model.Course;
+import model.OnlineCourse;
 
 /**
  * Manages the items in Menu.
@@ -34,10 +36,6 @@ public class MenuManager {
 	private CreateCoursePanel createCoursePanel;
 	private CreateCourseListPanel createCourseListPanel;
 	private Menu menu;
-
-	// private Predicate<Shape> circleFilter = s -> s instanceof Circle;
-	// private Predicate<Shape> rectangleFilter = s -> s instanceof Rectangle;
-	// private Predicate<Shape> allFilter = s -> s instanceof Shape;
 
 	private CourseManager courseManager;
 
@@ -330,11 +328,13 @@ public class MenuManager {
 
 			if (option == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = chooser.getSelectedFile();
+				String fileName = selectedFile.getName();
 
 				try {
-					List<Course> courselLists = FileHandler.load(selectedFile.getName());
+					List<Course> courselLists = FileHandler.load(fileName);
 					courseManager.setCourses(courselLists);
 					createCourseListPanel.createCourseElement();
+					frame.setTitle(fileName);
 
 				} catch (FileNotFoundException e) {
 					JOptionPane.showMessageDialog(frame, "File not found:" + e.getMessage(), "Error",

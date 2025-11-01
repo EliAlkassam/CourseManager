@@ -2,28 +2,16 @@ package gui;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import javax.swing.border.Border;
-
 import Service.CourseManager;
-import enums.Credits;
 import exception.CourseException;
 import gui.button.ButtonManager;
-import model.CampusCourse;
 import model.Course;
-import model.OnlineCourse;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Label;
 
 /**
  * Main frame for the Course Manager application
@@ -37,7 +25,7 @@ public class AppFrame extends JFrame {
     public static final String APP_NAME = "Course Manager";
 
     private final CourseManager courseManager = new CourseManager();
-    private Container c = this.getContentPane();
+    // private Container c = this.getContentPane();
 
     private CreateCoursePanel createCoursePanel;
     private CreateCourseListPanel createCourseListPanel;
@@ -54,8 +42,8 @@ public class AppFrame extends JFrame {
     }
 
     private void initialize() {
-        setupFrameProperties();
         // setLayout(new GridLayout(2, 2));
+        setupFrameProperties();
 
         ButtonManager buttonManager = new ButtonManager();
         add(buttonManager.getButtonPanel(), BorderLayout.SOUTH);
@@ -69,15 +57,8 @@ public class AppFrame extends JFrame {
         this.add(createCoursePanel, BorderLayout.WEST);
         this.add(createCourseListPanel, BorderLayout.CENTER);
 
-        // this.add(createCoursePanel, BorderLayout.WEST);
-        // add(createCourseListPanel.getCourseJPanel(), BorderLayout.CENTER);
-
-        // createCourseListPanel.createCourseElement();
-
         setupMenuBar();
-
         setUpButtonActions(buttonManager);
-
         // // ???
         // createCourseListPanel.createCourseElement();
         // Course selectedCourse = createCourseListPanel.getSelectedCourse();
@@ -90,6 +71,7 @@ public class AppFrame extends JFrame {
         setSize(900, 700);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setBackground(Color.LIGHT_GRAY);
 
     }
 

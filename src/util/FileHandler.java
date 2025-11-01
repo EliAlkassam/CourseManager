@@ -54,8 +54,6 @@ public class FileHandler {
             if (!fileName.endsWith(FILE_TYPE)) {
                 fileName += FILE_TYPE;
             }
-            // Path path = Path.of(fileName);
-            // List<String> data = java.nio.file.Files.readAllLines(path);
 
             File file = new File(fileName);
             FileReader fileReader = new FileReader(file);
@@ -82,7 +80,6 @@ public class FileHandler {
                     course = new CampusCourse(courseName, credit, overview);
                     courseList.add(course);
                 } else {
-                    // "Online course"
                     course = new OnlineCourse(courseName, credit, overview);
                     courseList.add(course);
                 }

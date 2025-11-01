@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.crypto.CipherInputStream;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -36,7 +37,7 @@ import model.OnlineCourse;
  */
 public class CreateCoursePanel extends JPanel {
 
-    // private final JLabel title = new JLabel("Course manager");
+    private final JLabel createCourseLbl = new JLabel("Create Course");
     // private final JLabel subtitle = new JLabel("Create and manage academic
     // courses");
 
@@ -68,7 +69,7 @@ public class CreateCoursePanel extends JPanel {
         this.createCourseListPanel = createCourseListPanel;
         this.buttonManager = buttonManager;
 
-        setBackground(Color.LIGHT_GRAY);
+        setBackground(Color.lightGray);
         // setLayout(new BorderLayout(8, 8));
 
         // JPanel form = new JPanel(new GridLayout(0, 2, 6, 6));
@@ -76,12 +77,17 @@ public class CreateCoursePanel extends JPanel {
         JPanel form = new JPanel();
         form.setLayout(new BoxLayout(form, BoxLayout.PAGE_AXIS));
         // form.setAlignmentX(Component.LEFT_ALIGNMENT);
+        createCourseLbl.setFont(new Font("SanssSerif", Font.BOLD, 25));
+        form.add(createCourseLbl);
+        form.add(Box.createVerticalStrut(10));
 
         form.add(new JLabel("Course name:"), BorderLayout.WEST);
         form.add(tfName, BorderLayout.WEST);
+        form.add(Box.createVerticalStrut(10));
 
         form.add(new JLabel("Credits"));
         form.add(cbCredits, BorderLayout.WEST);
+        form.add(Box.createVerticalStrut(10));
 
         // Course type and radio buttons
         JLabel selectCourseTypeLbl = new JLabel("Select Course type");
@@ -93,6 +99,7 @@ public class CreateCoursePanel extends JPanel {
         form.add(selectCourseTypeLbl);
         form.add(campusRdBtn);
         form.add(onlineRdBtn);
+        form.add(Box.createVerticalStrut(10));
 
         form.add(new JLabel("Course overview"));
         form.add(tfOverView);
@@ -164,11 +171,6 @@ public class CreateCoursePanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Course must have a name");
             return;
         }
-        if (overview.isBlank() || overview == null) {
-            JOptionPane.showMessageDialog(this, "Course must have overview information");
-            return;
-        }
-
         if (campusRdBtn.isSelected()) {
             course = new CampusCourse(name, credit, overview);
         } else if (onlineRdBtn.isSelected()) {
@@ -177,9 +179,13 @@ public class CreateCoursePanel extends JPanel {
             JOptionPane.showMessageDialog(this, " Select course type");
             return;
         }
+        if (overview.isBlank() || overview == null) {
+            JOptionPane.showMessageDialog(this, "Course must have overview information");
+            return;
+        }
+
         courseManager.addCourseToList(course);
         createCourseListPanel.createCourseElement();
-
         resetForm();
     }
 

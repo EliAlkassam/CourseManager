@@ -2,6 +2,7 @@ package Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import exception.CourseException;
 import model.Course;
@@ -58,4 +59,5 @@ public class CourseManager {
         }
         courses.remove(course);
     }
+
 }
