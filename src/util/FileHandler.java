@@ -84,7 +84,6 @@ public class FileHandler {
             bufferedReader.close();
             return courseList;
         } catch (FileNotFoundException e) {
-            System.err.println("Could not load:" + fileName + ":" + " " + e.toString());
             e.printStackTrace();
             return null;
         }

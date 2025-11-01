@@ -73,7 +73,6 @@ public abstract class Course implements Printable {
 
     @Override
     public String print() {
-        System.out.println(toString());//
         return null;
     }
 
