@@ -76,9 +76,11 @@ public class FileHandler {
                 if (typeAsString.equals("Campus course")) {
                     course = new CampusCourse(courseName, credit, overview);
                     courseList.add(course);
-                } else {
+                } else if (typeAsString.equals("Online course")) {
                     course = new OnlineCourse(courseName, credit, overview);
                     courseList.add(course);
+                } else {
+
                 }
             }
             bufferedReader.close();

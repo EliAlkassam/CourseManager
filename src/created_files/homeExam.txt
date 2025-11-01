@@ -1,2 +1,0 @@
-JAVA,7.5,Campus course,Time for java
-C#,30.0,Online course,C# time
