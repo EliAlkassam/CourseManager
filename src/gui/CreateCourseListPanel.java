@@ -17,13 +17,10 @@ import java.util.function.Predicate;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.Border;
 
 import Service.CourseManager;
 import gui.button.ButtonManager;
@@ -40,16 +37,12 @@ import model.OnlineCourse;
  */
 public class CreateCourseListPanel extends JPanel {
 
-    // private JPanel jPanel = new JPanel();
-    // private JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
-
     private final CourseManager courseManager;
     private ButtonManager buttonManager;
-    // private CreateCoursePanel createCoursePanel;
+
     private Course selectedCourse;
     private JPanel selectedRow;
-    // private ArrayList<Course> courseList;
-    // ny
+
     private JPanel contentPanel;
     private JScrollPane scrollPane;
 
@@ -61,10 +54,8 @@ public class CreateCourseListPanel extends JPanel {
     public CreateCourseListPanel(CourseManager courseManager, ButtonManager buttonManager) {
         this.courseManager = courseManager;
         this.buttonManager = buttonManager;
-        // this.createCoursePanel = createCoursePanel;
         courseFilter = s -> true;
-        // ny
-        // setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
         setLayout(new BorderLayout());
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -78,16 +69,9 @@ public class CreateCourseListPanel extends JPanel {
 
     }
 
-    // public JPanel getCourseJPanel() {
-    // return jPanel;
-    // }
-
     public void createCourseElement() {
-        // removeAll();
         contentPanel.removeAll();
-        // JPanel courseElement = new JPanel();
-        // courseElement.setLayout(new BoxLayout(courseElement, BoxLayout.Y_AXIS));
-        // JPanel row;
+
         List<Course> streamCourses = courseManager.getCoursesList();
         if (streamCourses.size() <= 0) {
             comboBox.setEnabled(false);
@@ -96,15 +80,6 @@ public class CreateCourseListPanel extends JPanel {
         streamCourses.stream().filter(courseFilter)
                 .forEach(s -> contentPanel.add(createCourseRow(s)));
         contentPanel.add(Box.createVerticalStrut(10));
-
-        // for (Course c : courseManager.getCoursesList()) {
-        // // JPanel row = createCourseRow(c);
-        // // contentPanel.add(row);
-        // contentPanel.add(Box.createVerticalStrut(10));
-
-        // }
-        // revalidate();
-        // repaint();
 
         contentPanel.revalidate();
         contentPanel.repaint();
@@ -117,16 +92,13 @@ public class CreateCourseListPanel extends JPanel {
 
         JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         row.setLayout(new BoxLayout(row, BoxLayout.PAGE_AXIS));
-        // row.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // topp,
-        // vänster, botten, höger
+
         row.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(220, 220, 220), 3, true), // tunn grå ram med rundade hörn
-                BorderFactory.createEmptyBorder(10, 15, 10, 25))); // inre padding
+                BorderFactory.createLineBorder(new Color(220, 220, 220), 3, true),
+                BorderFactory.createEmptyBorder(10, 15, 10, 25)));
 
         row.setOpaque(true);
         row.setBackground(new Color(245, 245, 245));
-
-        // row.add(new JLabel(String.valueOf(c.getId()) + "."));
 
         JLabel courseNameLbl = new JLabel(String.valueOf(c.getId()) + "." + " " + c.getCourseName());
         courseNameLbl.setFont(new Font("SanssSerif", Font.BOLD, 17));
@@ -142,7 +114,6 @@ public class CreateCourseListPanel extends JPanel {
         row.setMaximumSize(new Dimension(320, 100));
         row.setMinimumSize(new Dimension(320, 100));
 
-        // add(row);
         contentPanel.add(row);
 
         row.addMouseListener(new MouseAdapter() {
@@ -167,9 +138,14 @@ public class CreateCourseListPanel extends JPanel {
 
     }
 
-    public void initFilterComboBox() {
+    private void initFilterComboBox() {
 
         comboBox.addActionListener(event -> {
+            buttonManager.setDeleteBtnStatus(false);
+            buttonManager.setEditBtnStatus(false);
+            selectedCourse = null;
+            selectedRow = null;
+
             JComboBox<String> cb = (JComboBox<String>) event.getSource();
             String selectedOption = (String) cb.getSelectedItem();
 
@@ -183,25 +159,23 @@ public class CreateCourseListPanel extends JPanel {
             createCourseElement();
 
         });
-        // private Predicate<CampusCourse> campusFilter = s -> s instanceof
-        // CampusCourse;
-        // private Predicate<OnlineCourse> onlineFilter = s -> s instanceof
-        // OnlineCourse;
-        // private Predicate<Course> allFilter = s -> s instanceof Course;
+    }
 
-        // private JComboBox<Predicate> comboBox;
+    public void resetCourseListPanel() {
+        contentPanel.removeAll();
+        comboBox.setEnabled(false);
+        buttonManager.setDeleteBtnStatus(false);
+        buttonManager.setEditBtnStatus(false);
+
+        selectedCourse = null;
+        selectedRow = null;
+        courseManager.setCourses(new ArrayList<>());
+        contentPanel.revalidate();
+        contentPanel.repaint();
+
     }
 
     public Course getSelectedCourse() {
         return selectedCourse;
     }
-    // class CustomMouseAdapter extends MouseAdapter {
-    // @Override
-    // public void mousePressed(MouseEvent e) {
-    // if (e == null) {
-
-    // }
-    // // selectedCourse =
-    // }
-    // }
 }

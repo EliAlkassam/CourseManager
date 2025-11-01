@@ -92,7 +92,6 @@ public class CreateCoursePanel extends JPanel {
         // Course type and radio buttons
         JLabel selectCourseTypeLbl = new JLabel("Select Course type");
         ButtonGroup buttonGroup = new ButtonGroup();
-        // buttonGroup.( new BorderLayout());
         buttonGroup.add(campusRdBtn);
         buttonGroup.add(onlineRdBtn);
 
@@ -104,7 +103,6 @@ public class CreateCoursePanel extends JPanel {
         form.add(new JLabel("Course overview"));
         form.add(tfOverView);
 
-        // createBtn.add(createIcon);
         createBtn = new JButton("Create Course", createIcon);
         form.add(createBtn);
 
@@ -162,7 +160,6 @@ public class CreateCoursePanel extends JPanel {
      */
     public void createCourse() {
 
-        // to do - more JOptionPane
         String name = tfName.getText();
         Credits credit = (Credits) cbCredits.getSelectedItem();
         String overview = tfOverView.getText();
@@ -221,13 +218,4 @@ public class CreateCoursePanel extends JPanel {
         onlineRdBtn.setSelected(false);
         tfOverView.setText("");
     }
-
-    public JButton getCreateBtn() {
-        return this.createBtn;
-    }
-
-    public Course getCourse() {
-        return this.course;
-    }
-
 }

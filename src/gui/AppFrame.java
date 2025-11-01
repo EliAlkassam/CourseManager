@@ -10,7 +10,6 @@ import gui.button.ButtonManager;
 import model.Course;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 
 /**
@@ -25,16 +24,12 @@ public class AppFrame extends JFrame {
     public static final String APP_NAME = "Course Manager";
 
     private final CourseManager courseManager = new CourseManager();
-    // private Container c = this.getContentPane();
 
     private CreateCoursePanel createCoursePanel;
     private CreateCourseListPanel createCourseListPanel;
 
-    // private CourseManager courseManager;
-
     public AppFrame() {
         initialize();
-        // this.courseManager = courseManager;
     }
 
     public void setMinimumFrame(Dimension minumumSize) {
@@ -42,26 +37,19 @@ public class AppFrame extends JFrame {
     }
 
     private void initialize() {
-        // setLayout(new GridLayout(2, 2));
         setupFrameProperties();
 
         ButtonManager buttonManager = new ButtonManager();
         add(buttonManager.getButtonPanel(), BorderLayout.SOUTH);
 
-        // create panels
         createCourseListPanel = new CreateCourseListPanel(courseManager, buttonManager);
         createCoursePanel = new CreateCoursePanel(courseManager, createCourseListPanel, buttonManager);
-        // createCoursePanel.setPreferredSize(new Dimension(450, 350));
 
-        // add panels
         this.add(createCoursePanel, BorderLayout.WEST);
         this.add(createCourseListPanel, BorderLayout.CENTER);
 
         setupMenuBar();
         setUpButtonActions(buttonManager);
-        // // ???
-        // createCourseListPanel.createCourseElement();
-        // Course selectedCourse = createCourseListPanel.getSelectedCourse();
 
         createCourseListPanel.createCourseElement();
     }
@@ -105,21 +93,22 @@ public class AppFrame extends JFrame {
         deleteBtn.addActionListener(e -> {
             try {
                 Course selectedCourse = createCourseListPanel.getSelectedCourse();
+                String courseName = selectedCourse.getCourseName();
                 if (selectedCourse != null) {
                     int result = JOptionPane.showConfirmDialog(this,
-                            "Are you sure you want to delete course:" + " " + selectedCourse.getCourseName() + "?",
+                            "Are you sure you want to delete course:" + " " + courseName + "?",
                             "Delete course",
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE);
                     if (result == JOptionPane.YES_OPTION) {
-                        createCourseListPanel.createCourseElement();
+                        // createCourseListPanel.createCourseElement();
                         buttonManager.setDeleteBtnStatus(false);
                         buttonManager.setEditBtnStatus(false);
                         createCoursePanel.exitEditMode();
 
-                        JOptionPane.showMessageDialog(this, "The Course:" + " " + selectedCourse.getCourseName() + " "
-                                + "has been succesfully deleted");
                         courseManager.deleteCourse(selectedCourse);
+                        JOptionPane.showMessageDialog(this, "The Course:" + " " + courseName + " "
+                                + "has been succesfully deleted");
                         createCourseListPanel.createCourseElement();
                     }
                 }

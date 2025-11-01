@@ -26,11 +26,6 @@ public class ButtonManager {
     private JButton deleteButton;
     private JPanel buttonPanel;
 
-    // private JPanel buttonPanel = new JPanel();
-
-    private CourseManager courseManager;
-    private CreateCoursePanel createCoursePanel;
-
     public ButtonManager() {
         initButtons();
         // this.courseManager = courseManager;
@@ -76,8 +71,6 @@ public class ButtonManager {
 
     private void changeCreatebtnToSaveChangesBtn() {
         // TODO
-        // JButton btn = createCoursePanel.getCreateBtn();
-
     }
 
 }
