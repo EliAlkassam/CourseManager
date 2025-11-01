@@ -1,14 +1,9 @@
 package gui.button;
 
-import java.awt.Color;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import Service.CourseManager;
-import gui.CreateCoursePanel;
 
 /**
  * Manages edit and delete buttons for course functions.

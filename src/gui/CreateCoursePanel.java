@@ -4,13 +4,9 @@ import enums.Credits;
 import exception.CourseException;
 import gui.button.ButtonManager;
 import Service.CourseManager;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.crypto.CipherInputStream;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -22,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-
 import model.CampusCourse;
 import model.Course;
 import model.OnlineCourse;

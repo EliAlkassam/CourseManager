@@ -2,9 +2,6 @@ package util;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import enums.Credits;
 import model.CampusCourse;
 import model.Course;

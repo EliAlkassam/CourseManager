@@ -5,9 +5,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javax.swing.JFileChooser;
 
@@ -18,11 +16,8 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Service.CourseManager;
-import gui.button.ButtonManager;
 import util.FileHandler;
-import model.CampusCourse;
-import model.Course;
-import model.OnlineCourse;
+import model.Course;;
 
 /**
  * Manages the items in Menu.
@@ -63,15 +58,10 @@ public class MenuManager {
 		String sFile = "File";
 		menu.addJMenu(sFile);
 		menu.getJMenu(0).setMnemonic(KeyEvent.VK_F);
-
-		// menu.addJMenuItem(sFile, "New...", createNewDrawingAction(),
-		// KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
 		menu.addJMenuItem(sFile, "Load...", createLoadAction(),
 				KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
 		menu.addJMenuItem(sFile, "Save As...", SaveAsAction(),
 				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-		// menu.addJMenuItem(sFile, "Info", showInfoAction());
-
 		menu.getJMenu(0).addSeparator();
 		menu.addJMenuItem(sFile, "Exit", al -> System.exit(0));
 
@@ -86,8 +76,6 @@ public class MenuManager {
 			// creates a filter that only accepts text files
 			FileFilter txtFilter = new FileNameExtensionFilter("Text files", "txt");
 			chooser.addChoosableFileFilter(txtFilter);
-
-			// Remove/comment the below row if you also want the default 'All files' filter
 			chooser.setAcceptAllFileFilterUsed(false);
 
 			int option = chooser.showOpenDialog(frame);

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import enums.Credits;
@@ -27,8 +25,6 @@ public abstract class Course implements Printable {
 
     public Course() {
         this.id = idGenerator.getAndIncrement();
-        // this.courses = new ArrayList<>();
-
     }
 
     public Course(String courseName, Credits credits, String overview) {
