@@ -38,10 +38,12 @@ Built to demonstrate object-oriented design, GUI development, CRUD operations, f
 ## 📸 Preview
 
 All created courses:
+
 <img width="551" height="432" alt="Skärmbild 2026-03-18 235424" src="https://github.com/user-attachments/assets/1710485e-3e38-49e8-a961-d84d05176bb6" />
 
 Edit course mode:
-<img width="1110" height="870" alt="Skärmbild 2026-03-18 235540" src="https://github.com/user-attachments/assets/1c5944c9-846a-4dd6-af6b-c3d9a10b17e2" />
+
+<img width="555" height="435" alt="Skärmbild 2026-03-18 235540" src="https://github.com/user-attachments/assets/1c5944c9-846a-4dd6-af6b-c3d9a10b17e2" />
 
 
 ---
