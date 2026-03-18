@@ -123,6 +123,8 @@ public class CreateCoursePanel extends JPanel {
                 }
             }
         });
+
+        
     }
 
     /**

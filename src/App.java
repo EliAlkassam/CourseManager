@@ -3,12 +3,16 @@ import javax.swing.SwingUtilities;
 import gui.AppFrame;
 
 public class App {
-    public static void main(String[] args) throws Exception {
 
+    public static void main(String[] args) throws Exception {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new AppFrame().setVisible(true);
             }
         });
+    }
+
+    static {
+        System.out.println("Welcome to CourseManager");
     }
 }

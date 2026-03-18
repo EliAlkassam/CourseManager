@@ -25,6 +25,8 @@ public abstract class Course implements Printable {
 
     public Course() {
         this.id = idGenerator.getAndIncrement();
+        System.out.println("ctor1 - I am the abstract class - Course");
+
     }
 
     public Course(String courseName, Credits credits, String overview) {
@@ -32,9 +34,12 @@ public abstract class Course implements Printable {
         this.credits = credits;
         this.courseName = courseName;
         this.overview = overview;
+
+        System.out.println("ctor2 - I am the abstract class - Course");
     }
 
     public int getId() {
+        System.out.println("in Course- getId()" + this.id);
         return this.id;
     }
 
@@ -42,6 +47,7 @@ public abstract class Course implements Printable {
         if (credits == null) {
             throw new CourseException("Credits can't be null");
         }
+        
         this.credits = credits;
     }
 

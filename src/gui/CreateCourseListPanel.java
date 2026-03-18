@@ -82,11 +82,7 @@ public class CreateCourseListPanel extends JPanel {
         contentPanel.repaint();
     }
 
-    /**
-     * Creates a row for every course, with mouse selection listner.
-     */
-    private JPanel createCourseRow(Course c) {
-
+    private JPanel getRowProperties() {
         JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         row.setLayout(new BoxLayout(row, BoxLayout.PAGE_AXIS));
 
@@ -97,7 +93,57 @@ public class CreateCourseListPanel extends JPanel {
         row.setOpaque(true);
         row.setBackground(new Color(245, 245, 245));
 
-        JLabel courseNameLbl = new JLabel(String.valueOf(c.getId()) + "." + " " + c.getCourseName());
+        // JLabel courseNameLbl = new JLabel(String.valueOf(c.getId()) + "." + " " +
+        // c.getCourseName());
+        // courseNameLbl.setFont(new Font("SanssSerif", Font.BOLD, 17));
+        // row.add(courseNameLbl);
+
+        // row.add(new JLabel(c.getCredits().toString() + " " + "credits"));
+
+        // row.add(new JLabel(c.toStringType(c)));
+
+        // row.add(new JLabel(c.getOverview()));
+
+        row.setPreferredSize(new Dimension(320, 100));
+        row.setMaximumSize(new Dimension(320, 100));
+        row.setMinimumSize(new Dimension(320, 100));
+
+        return row;
+    }
+
+    /**
+     * Creates a row for every course, with mouse selection listner.
+     */
+    private JPanel createCourseRow(Course c) {
+
+        // JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        // row.setLayout(new BoxLayout(row, BoxLayout.PAGE_AXIS));
+
+        // row.setBorder(BorderFactory.createCompoundBorder(
+        // BorderFactory.createLineBorder(new Color(220, 220, 220), 3, true),
+        // BorderFactory.createEmptyBorder(10, 15, 10, 25)));
+
+        // row.setOpaque(true);
+        // row.setBackground(new Color(245, 245, 245));
+
+        // JLabel courseNameLbl = new JLabel(String.valueOf(c.getId()) + "." + " " +
+        // c.getCourseName());
+        // courseNameLbl.setFont(new Font("SanssSerif", Font.BOLD, 17));
+        // row.add(courseNameLbl);
+
+        // row.add(new JLabel(c.getCredits().toString() + " " + "credits"));
+
+        // row.add(new JLabel(c.toStringType(c)));
+
+        // row.add(new JLabel(c.getOverview()));
+
+        // row.setPreferredSize(new Dimension(320, 100));
+        // row.setMaximumSize(new Dimension(320, 100));
+        // row.setMinimumSize(new Dimension(320, 100));
+        JPanel row = getRowProperties();
+
+        JLabel courseNameLbl = new JLabel(String.valueOf(c.getId()) + "." + " " +
+                c.getCourseName());
         courseNameLbl.setFont(new Font("SanssSerif", Font.BOLD, 17));
         row.add(courseNameLbl);
 
@@ -106,10 +152,6 @@ public class CreateCourseListPanel extends JPanel {
         row.add(new JLabel(c.toStringType(c)));
 
         row.add(new JLabel(c.getOverview()));
-
-        row.setPreferredSize(new Dimension(320, 100));
-        row.setMaximumSize(new Dimension(320, 100));
-        row.setMinimumSize(new Dimension(320, 100));
 
         contentPanel.add(row);
 

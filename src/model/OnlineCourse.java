@@ -5,6 +5,8 @@ import enums.Credits;
 public class OnlineCourse extends Course {
     public OnlineCourse(String courseName, Credits credits, String overview) {
         super(courseName, credits, overview);
+        super.getId();
+        System.out.println("I am OnlineCourse");
     }
 
     @Override
