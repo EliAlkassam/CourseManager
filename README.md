@@ -1,18 +1,48 @@
-## Getting Started
+# 📚 Course Manager
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+A Java Swing desktop application for creating and managing courses.  
+Built to demonstrate object-oriented design, GUI development, CRUD operations, file handling, and filtering.
 
-## Folder Structure
+---
 
-The workspace contains two folders by default, where:
+## ✨ Features
+- Create courses with name, credits, and type (Online or Campus)
+- View all courses in a list
+- Select a course to edit its details
+- Update and delete existing courses
+- Filter courses by:
+  - All courses
+  - Campus courses
+  - Online courses
+- Save courses to a `.txt` file
+- Load courses from a `.txt` file
+- Dynamic input fields based on course type
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+---
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## 🛠 Tech Stack
+- Java
+- Java Swing (GUI)
+- Object-Oriented Programming (Inheritance, Abstract Classes, Interfaces)
+- File handling (reading and writing `.txt` files)
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+---
 
-## Dependency Management
+## 🚀 Getting Started
+1. Clone the repository  
+2. Open the project in your IDE (VS Code / IntelliJ)  
+3. Run the `App` or `Main` class  
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+---
+
+## 📸 Preview
+
+
+Edit course:
+![Uploading image.png…]()
+
+
+---
+
+## 🎯 About
+This project was built to practice building desktop applications using Java Swing, applying clean object-oriented design, and implementing CRUD functionality with persistent storage and filtering.
